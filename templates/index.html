@@ -92,69 +92,8 @@
 
 <!-- Products Start -->
 
-<style>
-    .container-fluid {
-        overflow-x: auto;
-        white-space: nowrap;
-    }
 
-    .tab {
-        overflow-x: auto;
-        white-space: nowrap;
-        display: flex;
-    }
-
-   
-    .brands {
-        overflow-x: auto;
-        white-space: nowrap;
-        display: flex;
-    }
-
-  
-    .product-item {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        position: relative; /* Add position relative to the product item */
-    }
-
-    .add-to-cart-btn {
-        margin-top: auto; /* Push the add to cart button to the bottom */
-    }
-    .product-img {
-        flex: 1;
-    }
-
-    .product-details {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-    }
-
-    .product-name {
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        text-overflow: ellipsis;
-        white-space: normal;
-        margin-bottom: 0.5rem; /* Add spacing between name and price */
-    }
-
-    .product-price {
-        margin-top: auto; /* Push price to bottom */
-    }
-
-    .add-to-cart-btn,
-    .call-btn {
-        text-align: center;
-        margin: 1rem; /* Adjust spacing as needed */
-    }
-</style>
-
-<div class="container-fluid pt-5 pb-3">
+<div >
     <div class="tab">
         {% for category in categories %}
         <button class="tablinks" onclick="openCategory(event, '{{ category.name|lower }}')">
@@ -179,14 +118,24 @@
             {% for brand in category.brand_set.all %}
                 {% for product in brand.product_set.all %}
                 <div id="{{ brand.name|lower }}" class="col-lg-3 col-md-4 col-sm-6 col-6 pb-1 brandcontent {% if forloop.first %}active{% endif %}">
-                    <div class="product-item bg-light mb-4">
+                    <div class="product-item bg-light">
                         <div class="product-img position-relative overflow-hidden">
                             <img class="img-fluid w-100" src="{{ product.image.url }}" alt="">
                         </div>
                         <div class="product-details">
+                            <p class="delivery-text">Eligible Free Delivery</p>
                             <h6 class="text-decoration-none text-truncate product-name">{{ product.name }}</h6>
                             <div class="d-flex  mt-2">
                                 <h5>UGX {{ product.price }}</h5>
+                            </div>
+                            <br>
+                            <div class="d-flex  mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                               
                             </div>
                             <div class="add-to-cart-btn">
                                 <button class="btn btn-primary btn-block">Add to Cart</button>
@@ -263,26 +212,37 @@
             initialBrand.style.display = "block";
         }
     
-        function openBrand(evt, brandName) {
-            var i, brandcontent;
-            // Hide all brand content
-            brandcontent = document.getElementsByClassName("brandcontent");
-            for (i = 0; i < brandcontent.length; i++) {
-                brandcontent[i].style.display = "none";
-            }
-            // Show the selected brand content
-            document.getElementById(brandName).style.display = "block";
-        }
     
         // Function to open all brand contents
         function openAllBrands() {
-            var i, brandcontent;
-            // Show all brand content
-            brandcontent = document.getElementsByClassName("brandcontent");
-            for (i = 0; i < brandcontent.length; i++) {
-                brandcontent[i].style.display = "block";
-            }
-        }
+    var i, brandcontent, tablinks;
+    // Show all brand content
+    brandcontent = document.getElementsByClassName("brandcontent");
+    for (i = 0; i < brandcontent.length; i++) {
+        brandcontent[i].style.display = "block";
+    }
+    // Remove 'active' class from all brand buttons
+    tablinks = document.getElementsByClassName("brand");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+}
+        function openBrand(evt, brandName) {
+    var i, brandcontent, tablinks;
+    // Hide all brand content
+    brandcontent = document.getElementsByClassName("brandcontent");
+    for (i = 0; i < brandcontent.length; i++) {
+        brandcontent[i].style.display = "none";
+    }
+    // Remove 'active' class from all brand buttons
+    tablinks = document.getElementsByClassName("brand");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+    // Show the selected brand content and add 'active' class to the clicked brand button
+    document.getElementById(brandName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}
     </script>
     
 {% endblock %}

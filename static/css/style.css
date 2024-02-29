@@ -18,6 +18,7 @@
   --cyan: #17a2b8;
   --white: #fff;
   --gray: #6c757d;
+  --gray2: #b4b5b6;
   --gray-dark: #343a40;
   --primary: #FFD333;
   --secondary: #F5F5F5;
@@ -9717,6 +9718,11 @@ a.text-dark:hover, a.text-dark:focus {
 
 
 /* new css */
+.container-fluid.pt-5.pb-3 {
+  width: 110%; /* Set the width as desired, you can adjust this value */
+  margin: 0 auto; /* Center the container */
+}
+
 .tab {
   overflow-x: auto;
   white-space: nowrap;
@@ -9724,7 +9730,8 @@ a.text-dark:hover, a.text-dark:focus {
   justify-content: space-around;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-  margin: 30px; 
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .tab button {
@@ -9732,13 +9739,16 @@ a.text-dark:hover, a.text-dark:focus {
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 5px 5px;
   transition: 0.3s;
   font-size: 17px;
 }
-
+.brands{
+  background-color: var(--gray2);
+  ;
+}
 .brands button {
-  background-color: #f1f1f1; 
+  background-color:  var(--gray2); 
   border: none;
   outline: none;
   cursor: pointer;
@@ -9746,6 +9756,7 @@ a.text-dark:hover, a.text-dark:focus {
   transition: 0.3s;
   font-size: 15px; 
   margin-right: 10px; 
+  color: #000;
 }
 .tab button:hover {
   background-color: #ddd;
@@ -9765,13 +9776,24 @@ a.text-dark:hover, a.text-dark:focus {
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
-  margin: 60px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
+.brands {
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+}
 
 .tabcontent.active {
   display: block;
 }
+.brands button.active {
+  background-color: var(--yellow);
+}
+
+
 @media only screen and (max-width: 600px) {
   .tab {
     overflow-x: auto;
@@ -9789,4 +9811,50 @@ a.text-dark:hover, a.text-dark:focus {
     border-top: none;
     margin: 10px;
   }
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  width: 110%; /* Set the width to 100% to occupy the entire column width */
+}
+
+.add-to-cart-btn {
+  margin-top: auto; /* Push the add to cart button to the bottom */
+}
+.product-img {
+  flex: 1;
+}
+
+.product-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.product-name {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  white-space: normal;
+  margin-bottom: 0.5rem; /* Add spacing between name and price */
+}
+
+.product-price {
+  margin-top: auto; /* Push price to bottom */
+}
+
+.add-to-cart-btn,
+.call-btn {
+  text-align: center;
+  margin: 1rem; /* Adjust spacing as needed */
+}
+.delivery-text {
+  font-size: small;
+  color: red;
 }
