@@ -1,0 +1,288 @@
+
+{% extends 'base.html' %}
+{%load static %}
+{% block content %}
+
+    <!-- Carousel Start -->
+    <div class="container-fluid mb-3">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#header-carousel" data-slide-to="1"></li>
+                        <li data-target="#header-carousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        {% for slider in slide %}
+                        <div class="carousel-item position-relative" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="{{ slider.photo.url }}" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{ slider.title }}</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{ slider.caption }}</p>
+                                    <!-- <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a> -->
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 d-none d-lg-block">
+                <div class="product-offer mb-30" style="height: 200px;">
+                    <img class="img-fluid" src="img/offer-1.jpg" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Save 20%</h6>
+                        <h3 class="text-white mb-3">Special Offer</h3>
+                        <a href="" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+                <div class="product-offer mb-30" style="height: 200px;">
+                    <img class="img-fluid" src="img/offer-2.jpg" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Save 20%</h6>
+                        <h3 class="text-white mb-3">Special Offer</h3>
+                        <a href="" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+
+    <!-- Featured Start -->
+    <div class="container-fluid pt-5 d-none d-lg-block">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Featured End -->
+
+
+    <!-- Categories Start -->
+
+  
+
+<!-- Products Start -->
+
+<style>
+    .container-fluid {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .tab {
+        overflow-x: auto;
+        white-space: nowrap;
+        display: flex;
+    }
+
+   
+    .brands {
+        overflow-x: auto;
+        white-space: nowrap;
+        display: flex;
+    }
+
+  
+    .product-item {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative; /* Add position relative to the product item */
+    }
+
+    .add-to-cart-btn {
+        margin-top: auto; /* Push the add to cart button to the bottom */
+    }
+    .product-img {
+        flex: 1;
+    }
+
+    .product-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .product-name {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        white-space: normal;
+        margin-bottom: 0.5rem; /* Add spacing between name and price */
+    }
+
+    .product-price {
+        margin-top: auto; /* Push price to bottom */
+    }
+
+    .add-to-cart-btn,
+    .call-btn {
+        text-align: center;
+        margin: 1rem; /* Adjust spacing as needed */
+    }
+</style>
+
+<div class="container-fluid pt-5 pb-3">
+    <div class="tab">
+        {% for category in categories %}
+        <button class="tablinks" onclick="openCategory(event, '{{ category.name|lower }}')">
+            <img src="{{ category.image.url }}" alt="{{ category.name }}">
+            <p>{{ category.name }}</p>
+        </button>
+        {% endfor %}
+    </div>
+
+    {% for category in categories %}
+    <div id="{{ category.name|lower }}" class="tabcontent {% if forloop.first %}active{% endif %}">
+        <!-- Brand Content -->
+        <div class="brands">
+            <button class="brand" onclick="openAllBrands()">All</button>
+            {% for brand in category.brand_set.all %}
+            <button class="brand" onclick="openBrand(event, '{{ brand.name|lower }}')">{{ brand.name }}</button>
+            {% endfor %}
+        </div>
+
+        <!-- Product Cards -->
+        <div class="row px-xl-5">
+            {% for brand in category.brand_set.all %}
+                {% for product in brand.product_set.all %}
+                <div id="{{ brand.name|lower }}" class="col-lg-3 col-md-4 col-sm-6 col-6 pb-1 brandcontent {% if forloop.first %}active{% endif %}">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="{{ product.image.url }}" alt="">
+                        </div>
+                        <div class="product-details">
+                            <h6 class="text-decoration-none text-truncate product-name">{{ product.name }}</h6>
+                            <div class="d-flex  mt-2">
+                                <h5>UGX {{ product.price }}</h5>
+                            </div>
+                            <div class="add-to-cart-btn">
+                                <button class="btn btn-primary btn-block">Add to Cart</button>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+    <!-- Categories End -->
+
+
+    <!-- Products Start -->
+
+    <!-- Offer Start -->
+
+
+
+    <!-- Vendor Start -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add 'active' class to the first indicator and first carousel item
+            document.querySelector("#header-carousel .carousel-indicators li:first-child").classList.add("active");
+            document.querySelector("#header-carousel .carousel-inner .carousel-item:first-child").classList.add("active");
+    
+            // Set the initial state to display the first category and its brands
+            var initialCategory = document.getElementById("category1");
+            initialCategory.classList.add("active");
+    
+            // Get the first brand content for the initial category and display it
+            var initialBrand = initialCategory.querySelector(".brandcontent");
+            initialBrand.style.display = "block";
+    
+            // Add 'active' class to the first category button
+            var initialTabButton = document.querySelector(".tablinks");
+            initialTabButton.classList.add("active");
+        });
+    
+        function openCategory(evt, categoryName) {
+            var i, tabcontent, tablinks;
+    
+            // Hide all category content
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+    
+            // Deactivate all tablinks
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+    
+            // Display the selected category content
+            document.getElementById(categoryName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+    
+            // Hide all brand content when a new category is selected
+            var brandcontent = document.getElementsByClassName("brandcontent");
+            for (i = 0; i < brandcontent.length; i++) {
+                brandcontent[i].style.display = "none";
+            }
+    
+            // Display the first brand content for the selected category
+            var initialBrand = document.getElementById(categoryName).querySelector(".brandcontent");
+            initialBrand.style.display = "block";
+        }
+    
+        function openBrand(evt, brandName) {
+            var i, brandcontent;
+            // Hide all brand content
+            brandcontent = document.getElementsByClassName("brandcontent");
+            for (i = 0; i < brandcontent.length; i++) {
+                brandcontent[i].style.display = "none";
+            }
+            // Show the selected brand content
+            document.getElementById(brandName).style.display = "block";
+        }
+    
+        // Function to open all brand contents
+        function openAllBrands() {
+            var i, brandcontent;
+            // Show all brand content
+            brandcontent = document.getElementsByClassName("brandcontent");
+            for (i = 0; i < brandcontent.length; i++) {
+                brandcontent[i].style.display = "block";
+            }
+        }
+    </script>
+    
+{% endblock %}
