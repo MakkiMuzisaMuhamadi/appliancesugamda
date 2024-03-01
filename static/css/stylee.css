@@ -9821,9 +9821,7 @@ a.text-dark:hover, a.text-dark:focus {
   width: 110%; /* Set the width to 100% to occupy the entire column width */
 }
 
-.add-to-cart-btn {
-  margin-top: auto; /* Push the add to cart button to the bottom */
-}
+
 .product-img {
   flex: 1;
 }
@@ -9849,12 +9847,48 @@ a.text-dark:hover, a.text-dark:focus {
   margin-top: auto; /* Push price to bottom */
 }
 
-.add-to-cart-btn,
-.call-btn {
-  text-align: center;
-  margin: 1rem; /* Adjust spacing as needed */
-}
+
 .delivery-text {
-  font-size: small;
+  font-size: 10px;
   color: red;
 }
+
+
+.add-to-cart-btn {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Add space between button and call icon */
+  text-align: center;
+  margin: 1rem; /* Adjust margin as needed */
+}
+
+.add-to-cart-btn .btn {
+  flex: 1; /* Make the button flexible to occupy remaining space */
+}
+
+.call-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 1rem; /* Add some space between button and call icon */
+}
+/* Keyframes for the jump animation */
+/* Keyframes for the jump animation */
+@keyframes jump {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Apply the animation to the icon */
+.call-icon .icon {
+  animation: jump 0.5s infinite; /* Apply the jump animation infinitely with a duration of 0.5s */
+}
+
+
+@media only screen and (max-width: 360px) {
+  .nav-item {
+          padding: 3px; 
+          margin: 5px;
+      }}
+
