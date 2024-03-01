@@ -4340,7 +4340,7 @@ input[type="button"].btn-block {
 .navbar-dark .navbar-nav .active > .nav-link,
 .navbar-dark .navbar-nav .nav-link.show,
 .navbar-dark .navbar-nav .nav-link.active {
-  color: #fff;
+  color: var(--light);
 }
 
 .navbar-dark .navbar-toggler {
@@ -9856,10 +9856,10 @@ a.text-dark:hover, a.text-dark:focus {
 
 .add-to-cart-btn {
   display: flex; /* Use flexbox for layout */
-  align-items: center; /* Center items vertically */
-  justify-content: space-between; /* Add space between button and call icon */
-  text-align: center;
-  margin: 1rem; /* Adjust margin as needed */
+  align-items: center;
+  justify-content: space-between; 
+  /* text-align: center; */
+  /* margin: 1rem;  */
 }
 
 .add-to-cart-btn .btn {
@@ -9892,3 +9892,27 @@ a.text-dark:hover, a.text-dark:focus {
           margin: 5px;
       }}
 
+      .moving-text {
+        animation: appearAndMove 20s ease-in-out infinite;
+        color: white;
+        white-space: nowrap; 
+        display: inline-block;
+        overflow: hidden;
+    }
+    
+    @keyframes appearAndMove {
+      0% {
+          opacity: 0; /* Start with opacity 0 to quickly appear */
+          transform: translateX(100%); /* Move from right to left */
+      }
+      10% {
+          opacity: 1; /* Quickly become fully visible */
+      }
+      100% {
+          transform: translateX(-100%); /* Continue moving left */
+      }
+  }
+
+
+
+  
