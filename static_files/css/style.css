@@ -9766,10 +9766,11 @@ a.text-dark:hover, a.text-dark:focus {
     overflow-x: scroll;
     padding-top: 0px !important; 
   }
-
   .tab-item  {
     margin-right: 10px; 
   }
+ 
+  
 }
 .brands {
   background-color: var(--gray2);
@@ -9826,7 +9827,7 @@ a.text-dark:hover, a.text-dark:focus {
   flex-direction: column;
   height: 100%;
   position: relative;
-  width: 110%; 
+  width: 100%; 
 }
 
 
@@ -9848,7 +9849,7 @@ a.text-dark:hover, a.text-dark:focus {
   -webkit-line-clamp: 2;
   text-overflow: ellipsis;
   white-space: normal;
-  margin-bottom: 0.5rem; 
+  margin-bottom: 1px; 
   font-size: 12px;
 
 }
@@ -9861,14 +9862,14 @@ a.text-dark:hover, a.text-dark:focus {
 .delivery-text {
   font-size: 10px;
   color: red;
+  margin-bottom: 8px;
 }
 
 
-
+/* Default styles */
 .add-to-cart-btn {
-  display: flex; /* Use flexbox for layout */
-  align-items: center;
-  justify-content: space-between;
+  display: flex;
+  margin-top: 5px;
   font-size: 12px;
 }
 
@@ -9876,18 +9877,29 @@ a.text-dark:hover, a.text-dark:focus {
   flex: 1;
   background-color: var(--orange) !important;
   color: var(--light) !important;
-  width: 70px; /* Set the desired width */
-  height: 30px; /* Set the desired height */
-  border-radius: 5px; /* Set the desired border radius */
-  font-size: 12px; /* Set the desired font size */
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  font-size: 12px;
 }
+
+@media (max-width: 767px) {
+  .add-to-cart-btn .btn {
+    font-size: 11px; 
+  }
+  .product-item {
+    width: 120%; 
+  }
+  
+}
+
 
 .call-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 5px; /* Add margin to create space between elements */
-  margin-right: 10px; /* Add margin to create space between elements */
+  margin-left: 10px;
+  margin-right: 20px; 
 }
 /* Keyframes for the jump animation */
 /* Keyframes for the jump animation */
@@ -9909,7 +9921,7 @@ a.text-dark:hover, a.text-dark:focus {
           margin: 5px;
       }}
 
-     
+    
     
       .moving-text-container {
         overflow: hidden;
