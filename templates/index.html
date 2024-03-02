@@ -3,7 +3,7 @@
 {% block content %}
 
 <!-- Carousel Start -->
-<div class="container-fluid mb-3">
+<!-- <div class="container-fluid mb-3">
     <div class="row px-xl-5">
         <div class="col-lg-12">
             <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
@@ -27,22 +27,36 @@
         </div>
 
     </div>
-</div>
-<!-- Carousel End -->
+</div> -->
+<style>
 
+    .responsive-image {
+      width: 100%;
+      overflow: hidden; 
+      margin-left: 10px;
+     padding-right: 10px;
+    }
 
+    .responsive-image img {
+      width: 100%; 
+      height: auto; 
+    }
 
-<!-- Featured End -->
+    @media only screen and (min-width: 768px) {
+      .responsive-image {
+        height: 400px; 
+      }
+    }
 
-
-<!-- Categories Start -->
-
-
-
-<!-- Products Start -->
-
-
-
+    @media only screen and (max-width: 767px) {
+      .responsive-image {
+        height: 150px; 
+      }
+    }
+  </style><div class="responsive-image">
+    <img src="{% static 'img/c.png' %}" alt="Responsive Image">
+  </div>
+  
     <div class="tab">
         {% for category in categories %}
         <div class="tab-item">
