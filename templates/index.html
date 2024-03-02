@@ -66,7 +66,7 @@
     </div>
 
     <!-- Product Cards -->
-    <div class="row px-xl-5">
+    <div class="row px-lg-2">
         {% for brand in category.brand_set.all %}
         {% for product in brand.product_set.all %}
         <div id="{{ brand.name|lower }}"
@@ -77,9 +77,9 @@
                 </div>
                 <div class="product-details">
                     <p class="delivery-text">Eligible Free Delivery</p>
-                    <h6 class="text-decoration-none text-truncate product-name">{{ product.name }}</h6>
+                    <p class="text-decoration-none text-truncate product-name">{{ product.name }}</p>
                     <div class="d-flex  mt-2">
-                        <h5>UGX {{ product.price }}</h5>
+                        <h6>UGX {{ product.price }}</h6>
                     </div>
                     <br>
                     <div class="d-flex  mb-1">
@@ -91,7 +91,7 @@
 
                     </div>
                     <div class="add-to-cart-btn ">
-                        <button class="btn btn-primary btn-block">Add to Cart</button>
+                        <button class="btn btn-primary btn-block">ADD TO CART</button>
                         <a href="" class="call-icon d-lg-none">
                             <div class="icon">
                                 <i class="fa fa-phone-alt"></i>
