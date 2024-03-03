@@ -9727,8 +9727,8 @@ a.text-dark:hover, a.text-dark:focus {
   display: flex;
   justify-content: space-around;
   background-color: #f1f1f1;
-  margin-left: 10px;
-  margin-right: 10px;
+  /* margin-left: 10px;
+  margin-right: 10px; */
 
 }
 
@@ -9810,11 +9810,11 @@ a.text-dark:hover, a.text-dark:focus {
 }
 .tabcontent {
   display: block;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
+  /* padding: 6px 12px; */
+  /* border: 1px solid #ccc; */
   border-top: none;
-  margin-left: 10px;
-  margin-right: 10px;
+  /* margin-left: 5px; */
+  /* margin-right: 5px; */
 }
 
 
