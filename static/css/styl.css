@@ -9513,6 +9513,7 @@ a.text-dark:hover, a.text-dark:focus {
 @media (max-width: 991.98px) {
   .navbar-dark .navbar-nav .nav-link {
     padding: 5px 0px;
+    
   }
 }
 
@@ -9835,6 +9836,9 @@ a.text-dark:hover, a.text-dark:focus {
 
 .product-img {
   flex: 1;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
 }
 
 .product-details {
@@ -9870,7 +9874,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 .warranty-text {
   font-size: 12px;
-  color: --gray-dark;
+  color: var(--gray-dark);
   margin-bottom: 1px;
   margin-left: 7px;
   margin-top: 5px;
@@ -9898,33 +9902,65 @@ a.text-dark:hover, a.text-dark:focus {
 @media (max-width: 767px) {
   .add-to-cart-btn .btn {
     font-size: 10px; 
+    
   }
   .product-item {
     width: 115%; 
   }
+  .product-img {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
   
 }
 
+.share-icon {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 10px;
+  right: 10px;
+  color: rgb(9, 175, 216);
+  font-size: 10px;
+  z-index: 999;
+}
 
-.call-icon {
+.share-icon i {
+  margin-bottom: 0;
+}
+
+.share-icon span {
+  font-size: 10px;
+}
+.call-icon .icon{
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-left: 10px;
   margin-right: 20px; 
+  margin-bottom: 0;
+
 }
-/* Keyframes for the jump animation */
-/* Keyframes for the jump animation */
+
+.name span {
+  font-size: 12px; 
+  margin-top: 0;
+}
+.icon{
+    font-size: 19px; 
+
+}
+.call-icon .icon {
+  animation: jump 0.5s infinite;
+}
 @keyframes jump {
   0% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
   100% { transform: translateY(0); }
 }
 
-/* Apply the animation to the icon */
-.call-icon .icon {
-  animation: jump 0.5s infinite; /* Apply the jump animation infinitely with a duration of 0.5s */
-}
+
 
 
 @media only screen and (max-width: 360px) {
@@ -9961,14 +9997,32 @@ a.text-dark:hover, a.text-dark:focus {
 
 
 
-    .name span {
-      font-size: 12px; 
-    }
-    .icon{
-        font-size: 19px; 
-    
-    }
+
     .rounded-input {
             border-radius: 50px;
         }
+/* spacing between on fixed bottom nav */
+ @media (max-width: 575.98px) {
+          .navbar-nav {
+       width: 100%;
+       justify-content: space-between;
+   }
+      
+   }
 
+
+
+
+
+   .brand-new-text {
+    position: absolute;
+    top: 10px; 
+    left: 10px; 
+    color: white; 
+    font-size: 11px; 
+    background-color:  rgb(190, 147, 4); 
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 5px; 
+    z-index: 999;
+}

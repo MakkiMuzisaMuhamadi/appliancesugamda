@@ -23,7 +23,7 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styl.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -217,7 +217,7 @@
                                 <i class="fa fa-phone-alt"></i>
                             </div>
                             <div class="name">
-                                <span>Call to Order</span>
+                                <span>Order Now</span>
                             </div>
                         </a>
                         <a href="{% url 'index' %}" class="nav-item nav-link text-center">
@@ -228,7 +228,7 @@
                                 <span>Home</span>
                             </div>
                         </a>
-                        <a href="#categoriesDrawer" class="nav-item nav-link text-center" data-toggle="collapse">
+                        <a href="" class="nav-item nav-link text-center">
                             <div class="icon">
                                 <i class="fa fa-list"></i>
                             </div>
@@ -239,7 +239,7 @@
                         <a href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER" target="_blank"
                             class="nav-item nav-link text-center">
                             <div class="icon">
-                                <i class="fab fa-whatsapp"></i> <!-- WhatsApp Icon -->
+                                <i class="fab fa-whatsapp" style="font-size: 26px;"></i> 
                             </div>
                             <div class="name">
                                 <span>WhatsApp</span> <!-- WhatsApp Nav Name -->
@@ -258,7 +258,6 @@
             </div>
         </div>
     </div>
-
 
 
     {% block content %}

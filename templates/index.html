@@ -26,6 +26,39 @@
             height: 150px;
         }
     }
+    @media only screen and (max-width: 600px) {
+  .brand-new-text {
+      font-size: 8px; 
+  }
+
+  .share-icon {
+      font-size: 8px; 
+      right: 2px;
+  }
+  .share-icon span {
+  font-size: 8px;
+  right: 2px;
+}
+}
+.discount-container {
+    display: flex;
+    align-items: baseline; 
+    margin-left: 7px; 
+
+}
+
+.discount-amount {
+    margin-right: 6px; 
+    font-size: 12px;
+    text-decoration: line-through;
+}
+
+.discount-percent {
+    font-size: 12px;
+    background-color: #f7e8b2;
+    /* padding: 2px 4px;  */
+}
+
 </style>
 
 
@@ -38,8 +71,7 @@
     <div class="tab">
         {% for category in categories %}
         <div class="tab-item">
-            <button class="tablinks{% if forloop.first %} active{% endif %}" 
-             >
+            <button class="tablinks{% if forloop.first %} active{% endif %}">
                 <img src="{{ category.image.url }}" alt="{{ category.name }}">
             </button>
             <p style="font-size: 12px;">{{ category.name }}</p>
@@ -49,40 +81,61 @@
 
     <div id="" class="tabcontent">
         <div class="brands">
-            <button class="brand" >All</button>          
+            <button class="brand">All</button>
             {% for br in brands %}
-            <button class="brand" 
-              >{{ br.name }}</button>
+            <button class="brand">{{ br.name }}</button>
             {% endfor %}
         </div>
-
         <div class="row px-lg-2" id="product-list">
             {% for pr in products %}
-            <div class="col-lg-3 col-md-4 col-sm-6 col-6 pb-1 brandcontent"
-                >
+            <div class="col-lg-3 col-md-4 col-sm-6 col-6 pb-1 brandcontent">
                 <!-- Product details -->
                 <div class="product-item bg-light">
-                    <div class="product-img position-relative overflow-hidden">
-                        <a href="{% url 'product_detail' pr.id %}"> <img class="img-fluid w-100"
-                                src="{{ pr.image.url }}" alt=""></a>
-            
+                    <div class="brand-new-text">Brand New</div>
+
+                    <div class="share-icon">
+                        <div class="icon2">
+                            <i class="fas fa-share"></i>
+                        </div>
+                        <span>Share</span>
                     </div>
+
+                    <div class="product-img position-relative overflow-hidden">
+                        <a href="{% url 'product_detail' pr.id %}">
+                            <img class="img-fluid w-100" src="{{ pr.image.url }}" alt="">
+
+                        </a>
+                    </div>
+
                     <div class="product-details">
                         <p class="delivery-text">Eligible Free Delivery</p>
                         <a href="{% url 'product_detail' pr.id %}" style="color: #343a40;">
                             <p class="text-decoration-none text-truncate product-name">{{ pr.name }}</p>
                         </a>
-            
+
                         <div class="d-flex">
                             <h5>UGX {{ pr.price }}</h3>
                         </div>
+                        <div class="discount-container">
+                            <div class="discount-amount">
+                                UGX 2,000,000
+                            </div>
+                            <div class="discount-percent">
+                                -17.7%
+                            </div>
+                        </div>
+                                                
+                           
+                        
+                           
+                        
                         <div class="d-flex">
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
                             <small class="fa fa-star text-primary mr-1"></small>
-            
+
                         </div>
                         <p class="warranty-text">Warranty protection policy applies on all our products</p>
 
@@ -93,7 +146,7 @@
                                     <i class="fa fa-phone-alt"></i>
                                 </div>
                                 <div class="name">
-                                    <span>Call</span>
+                                    <span style="margin-left: 10px; color: #343a40;">Call</span>
                                 </div>
                             </a>
                         </div>
