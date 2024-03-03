@@ -5,9 +5,14 @@ from mainApp.models import *
 def index(request):
     slide = Slides.objects.all()
     categories = Category.objects.all()
+    brands = Brand.objects.all()
+    products = Product.objects.all()
+    
     context = {
         "slide": slide,
-        'categories': categories
+        'categories': categories,
+        'brands': brands,
+        'products': products,
          }   
     return render (request, 'index.html', context)
 
