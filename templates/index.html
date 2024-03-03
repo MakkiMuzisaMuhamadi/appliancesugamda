@@ -5,15 +5,23 @@
 <style>
     .responsive-image {
         width: 100%;
-        overflow: hidden;
-        margin-left: 10px;
-        padding-right: 10px;
+    overflow: hidden;
+    position: relative;
     }
 
     .responsive-image img {
         width: 100%;
-        height: auto;
+    height: auto;
+    display: none; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease;
     }
+    .responsive-image img.active {
+    display: block; 
+    opacity: 1; 
+}
 
     @media only screen and (min-width: 768px) {
         .responsive-image {
@@ -65,9 +73,11 @@
 
 <div class="container-fluid">
     <div class="responsive-image">
-        <img src="{% static 'img/c.png' %}" alt="Responsive Image">
+        <img src="{% static 'img/c.png' %}" alt="Slide 1">
+        <img src="{% static 'img/c1.jpg' %}" alt="Slide 2">
+        <img src="{% static 'img/ccc.webp' %}" alt="Slide 3">
     </div>
-
+    
     <div class="tab">
         {% for category in categories %}
         <div class="tab-item">
@@ -157,7 +167,20 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var slides = document.querySelectorAll('.responsive-image img');
+    var currentSlide = 0;
+    var slideInterval = setInterval(nextSlide, 6000); 
 
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active'); 
+        currentSlide = (currentSlide + 1) % slides.length; 
+        slides[currentSlide].classList.add('active'); 
+    }
+});
+
+</script>
 
 
 {% endblock %}
