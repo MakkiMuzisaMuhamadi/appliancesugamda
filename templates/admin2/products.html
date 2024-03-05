@@ -1,0 +1,66 @@
+{% extends 'admin2/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="main">
+
+    <form id="product-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    
+    <div id="success-message" style="display: none;">
+        Product saved successfully.
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#id_category').change(function () {
+                var category_id = $(this).val();
+                $.ajax({
+                    url: '/get_brands/',
+                    data: {
+                        'category_id': category_id
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        var brands = $('#id_brand');
+                        brands.empty();
+                        $.each(data, function (index, value) {
+                            brands.append($('<option>').text(value.name).attr('value', value.id));
+                        });
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+        $('#product-form').submit(function(event) {
+            event.preventDefault(); // Prevent default form submission
+            var formData = new FormData(this);
+            $.ajax({
+                url: '{% url "create_product" %}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        $('#success-message').show(); // Show success message
+                        $('#product-form')[0].reset(); // Reset form fields
+                    } else {
+                        // Handle form errors if any
+                        console.log(response.errors);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+    </script>
+</div>
+
+{% endblock %}

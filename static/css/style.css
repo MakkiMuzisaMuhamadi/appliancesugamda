@@ -9889,12 +9889,21 @@ a.text-dark:hover, a.text-dark:focus {
   font-size: 12px;
 }
 
-.add-to-cart-btn .btn {
+.add-to-cart-btn .btn{
   flex: 1;
   background-color: var(--orange) !important;
   color: var(--light) !important;
   width: 80px;
   height: 30px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.form-btn{
+  flex: 1 !important;
+  background-color: var(--orange) !important;
+  color: var(--light) !important;
+  width: 80px !important;
+  height: 30px !important;
   border-radius: 5px;
   font-size: 12px;
 }
@@ -10026,4 +10035,73 @@ a.text-dark:hover, a.text-dark:focus {
     padding-right: 3px;
     border-radius: 5px; 
     z-index: 999;
+}
+
+
+.responsive-image {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.responsive-image img {
+  width: 100%;
+  height: auto;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease;
+}
+
+.responsive-image img.active {
+  display: block;
+  opacity: 1;
+}
+
+@media only screen and (min-width: 768px) {
+  .responsive-image {
+      height: 400px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .responsive-image {
+      height: 150px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .brand-new-text {
+      font-size: 8px;
+  }
+
+  .share-icon {
+      font-size: 8px;
+      right: 2px;
+  }
+
+  .share-icon span {
+      font-size: 8px;
+      right: 2px;
+  }
+}
+
+.discount-container {
+  display: flex;
+  align-items: baseline;
+  margin-left: 7px;
+
+}
+
+.discount-amount {
+  margin-right: 6px;
+  font-size: 12px;
+  text-decoration: line-through;
+}
+
+.discount-percent {
+  font-size: 12px;
+  background-color: #f7e8b2;
+  /* padding: 2px 4px;  */
 }

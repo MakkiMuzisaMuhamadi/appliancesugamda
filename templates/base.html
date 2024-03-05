@@ -23,7 +23,7 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{% static 'css/styl.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -44,7 +44,7 @@
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My
                             Account</button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">Sign in</button>
+                         <a href="{% url 'adminview' %}">  <button class="dropdown-item" type="button">Sign in</button></a> 
                             <button class="dropdown-item" type="button">Sign up</button>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                         <span class="h7 text-uppercase text-dark bg-light px-2">Appliances</span>
                         <span class="h7 text-uppercase text-light bg-primary px-2 ml-n1">Uganda</span>
                     </a>
-                    <a href="" class="btn px-0 ml-3">
+                    <a href="{% url 'cart_detail' %}" class="btn px-0 ml-3">
                         <i class="fas fa-shopping-cart text-primary d-lg-none"></i>
                         <span class="badge text-secondary border border-secondary rounded-circle d-lg-none"
                             style="padding-bottom: 2px;">0</span>
@@ -167,14 +167,14 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
                             <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i
                                         class="fa fa-angle-down mt-1"></i></a>
                                 <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>
+                                    <a href="{% url 'cart_detail' %}" class="dropdown-item">Shopping Cart</a>
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                 <span class="badge text-secondary border border-secondary rounded-circle"
                                     style="padding-bottom: 2px;">0</span>
                             </a>
-                            <a href="" class="btn px-0 ml-3">
+                            <a href="{% url 'cart_detail' %}" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle"
                                     style="padding-bottom: 2px;">0</span>

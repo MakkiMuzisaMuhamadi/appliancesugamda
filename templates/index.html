@@ -2,77 +2,169 @@
 {% load static %}
 
 {% block content %}
+
 <style>
-    .responsive-image {
-        width: 100%;
-        overflow: hidden;
-        position: relative;
+    .toast {
+        position: fixed;
+        top: 25px;
+        right: 25px;
+        max-width: 300px;
+        background: #fff;
+        padding: 0.5rem;
+        border-radius: 4px;
+        box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.3);
+        z-index: 1023;
+        animation: slideInRight 0.3s ease-in-out forwards,
+            fadeOut 0.5s ease-in-out forwards 3s;
+        transform: translateX(110%);
     }
 
-    .responsive-image img {
-        width: 100%;
-        height: auto;
-        display: none;
+    .toast.closing {
+        animation: slideOutRight 0.5s ease-in-out forwards;
+    }
+
+    .toast-progress {
         position: absolute;
-        top: 0;
-        left: 0;
-        transition: opacity 0.5s ease;
-    }
-
-    .responsive-image img.active {
         display: block;
-        opacity: 1;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        background: #b7b7b7;
+        animation: toastProgress 3s ease-in-out forwards;
     }
 
-    @media only screen and (min-width: 768px) {
-        .responsive-image {
-            height: 400px;
-        }
-    }
-
-    @media only screen and (max-width: 767px) {
-        .responsive-image {
-            height: 150px;
-        }
-    }
-
-    @media only screen and (max-width: 600px) {
-        .brand-new-text {
-            font-size: 8px;
-        }
-
-        .share-icon {
-            font-size: 8px;
-            right: 2px;
-        }
-
-        .share-icon span {
-            font-size: 8px;
-            right: 2px;
-        }
-    }
-
-    .discount-container {
+    .toast-content-wrapper {
         display: flex;
-        align-items: baseline;
-        margin-left: 7px;
-
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .discount-amount {
-        margin-right: 6px;
-        font-size: 12px;
-        text-decoration: line-through;
+    .toast-icon {
+        padding: 0.35rem 0.5rem;
+        font-size: 1.5rem;
     }
 
-    .discount-percent {
-        font-size: 12px;
-        background-color: #f7e8b2;
-        /* padding: 2px 4px;  */
+    .toast-message {
+        flex: 1;
+        font-size: 0.9rem;
+        color: #000000;
+        padding: 0.5rem;
+    }
+
+    .toast.toast-success {
+        background: #95eab8;
+    }
+
+    .toast.toast-success .toast-progress {
+        background-color: #2ecc71;
+    }
+
+
+    @keyframes slideInRight {
+        0% {
+            transform: translateX(110%);
+        }
+
+        75% {
+            transform: translateX(-10%);
+        }
+
+        100% {
+            transform: translateX(0%);
+        }
+    }
+
+    @keyframes slideOutRight {
+        0% {
+            transform: translateX(0%);
+        }
+
+        25% {
+            transform: translateX(-10%);
+        }
+
+        100% {
+            transform: translateX(110%);
+        }
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes toastProgress {
+        0% {
+            width: 100%;
+        }
+
+        100% {
+            width: 0%;
+        }
     }
 </style>
+<script>
+    // script.js 
+
+    let icon = {
+        success:
+            '<span class="material-symbols-outlined">task_alt</span>',
+
+    };
+
+    const showToast = (
+        message = "Sample Message",
+        toastType = "info",
+        duration = 5000) => {
+        if (
+            !Object.keys(icon).includes(toastType))
+            toastType = "info";
+
+        let box = document.createElement("div");
+        box.classList.add(
+            "toast", `toast-${toastType}`);
+        box.innerHTML = ` <div class="toast-content-wrapper"> 
+                <div class="toast-icon"> 
+                ${icon[toastType]} 
+                </div> 
+                <div class="toast-message">${message}</div> 
+                <div class="toast-progress"></div> 
+                </div>`;
+        duration = duration || 5000;
+        box.querySelector(".toast-progress").style.animationDuration =
+            `${duration / 1000}s`;
+
+        let toastAlready =
+            document.body.querySelector(".toast");
+        if (toastAlready) {
+            toastAlready.remove();
+        }
+
+        document.body.appendChild(box)
+    };
+
+    let submit =
+        document.querySelector(".custom-toast.success-toast");
+    let information =
+        document.querySelector(".custom-toast.info-toast");
+    let failed =
+        document.querySelector(".custom-toast.danger-toast");
+    let warn =
+        document.querySelector(".custom-toast.warning-toast");
+
+    submit.addEventListener("click", (e) => {
+        e.preventDefault();
+        showToast("Article Submitted Successfully", "success", 5000);
+    });
 
 
+</script>
 
 <div class="container-fluid">
     <div class="responsive-image">
@@ -153,7 +245,12 @@
                         <p class="warranty-text">Warranty protection policy applies on all our products</p>
 
                         <div class="add-to-cart-btn ">
-                            <button class="btn btn-primary btn-block">ADD TO CART</button>
+                           
+                            <form action="{% url 'add_to_cart' pr.id %}" method="post" >
+                                {% csrf_token %}
+                                <button type="submit" id="add" class="btn btn-primary" >ADD TO CART</button>
+                                </form>
+                                                                               
                             <a href="" class="call-icon d-lg-none">
                                 <div class="icon">
                                     <i class="fa fa-phone-alt"></i>
@@ -170,6 +267,26 @@
         </div>
     </div>
 </div>
+
+<style>
+    #add{
+        width: 300px;
+    }
+    @media (max-width: 767px) {
+        #add {
+            width: 140px; 
+    
+  }
+  
+}
+@media only screen and (max-width: 360px) {
+        #add {
+            width: 130px; 
+    
+  }
+  
+}
+</style>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var slides = document.querySelectorAll('.responsive-image img');
@@ -184,6 +301,6 @@
     });
 
 </script>
-
+    
 
 {% endblock %}

@@ -3,4 +3,11 @@ from . import views
 urlpatterns = [
     path('',views.index,name="index"),
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+    path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('cart/', views.cart_detail, name='cart_detail'),
+    path('delete_item/', views.delete_item, name='delete_item'),
+            # admin urls
+    path('adminview/',views.adminview,name="adminview"),
+    path('create/', views.create_product, name='create_product'),
+    path('get_brands/', views.get_brands, name='get_brands'),
 ]
