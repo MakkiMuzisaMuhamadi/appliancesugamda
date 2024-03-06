@@ -14,7 +14,11 @@ def index(request):
     categories = Category.objects.all()
     brands = Brand.objects.all()
     products = Product.objects.all()
-    
+    session_key = request.session.session_key
+    cart_items = CartItem.objects.filter(session_key=session_key)
+    cart_items_count = sum(item.quantity for item in cart_items)
+    request.session['cart_items_count'] = cart_items_count
+
     context = {
         "slide": slide,
         'categories': categories,
@@ -23,23 +27,53 @@ def index(request):
          }   
     return render (request, 'index.html', context)
 
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    session_key = request.session.session_key
+    cart_items = CartItem.objects.filter(session_key=session_key)
+    cart_items_count = sum(item.quantity for item in cart_items)
+    request.session['cart_items_count'] = cart_items_count
+
+    context = {
+        'product': product
+    }
+    return render(request, 'detail.html', context)
+
+#  cart views
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     session_key = request.session.session_key
-
-    # Get or create the cart for the current session
     cart, created = CartItem.objects.get_or_create(session_key=session_key, product=product)
 
-    # Check if product already exists in cart
     if not created:
         cart.quantity += 1
         cart.save()
-    messages.success(request, "Product Added to Cart Successfully." )
-    return redirect('/')
+
+    # Return a JSON response with the message and status
+    response_data = {'message': 'Product added to the cart successfully', 'status': 'success'}
+    return JsonResponse(response_data)
 def cart_detail(request):
     session_key = request.session.session_key
     cart_items = CartItem.objects.filter(session_key=session_key)
-    
+    cart_items_count = sum(item.quantity for item in cart_items)
+    # Calculate total price for each item in the cart
+    for item in cart_items:
+        item.total_price = item.product.price * item.quantity
+    # Calculate the final total of all products
+    total_price = sum(item.total_price for item in cart_items)
+    request.session['cart_items_count'] = cart_items_count
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price,
+    }
+    return render(request, 'cart.html', context)
+
+
+
+def checkout(request):
+    session_key = request.session.session_key
+    cart_items = CartItem.objects.filter(session_key=session_key)
+
     # Calculate total price for each item in the cart
     for item in cart_items:
         item.total_price = item.product.price * item.quantity
@@ -51,7 +85,8 @@ def cart_detail(request):
         'cart_items': cart_items,
         'total_price': total_price,
     }
-    return render(request, 'cart.html', context)
+
+    return render(request, 'checkout.html', context)
 
 def delete_item(request):
     if request.method == 'POST':
@@ -59,17 +94,38 @@ def delete_item(request):
         CartItem.objects.filter(id=item_id).delete()
     return redirect('cart_detail')
 
+def place_order(request):
+    session_key = request.session.session_key
+    cart_items = CartItem.objects.filter(session_key=session_key)
+    for item in cart_items:
+        item.total_price = item.product.price * item.quantity
+    total_price = sum(item.total_price for item in cart_items)
+
+    # Create the order
+    order = Order.objects.create(
+        first_name=request.POST.get('first_name'),
+        last_name=request.POST.get('last_name'),
+        email=request.POST.get('email'),
+        phone=request.POST.get('phone'),
+        address=request.POST.get('address'),
+        city=request.POST.get('city'),
+        country=request.POST.get('country')
+    )
+    order.save() 
+    for cart_item in cart_items:
+        OrderItem.objects.create(
+            order=order,
+            product=cart_item.product,
+            quantity=cart_item.quantity,
+        )
+
+    cart_items.delete()
+    messages.success(request, 'Your Order has been received, We shall contact you soon')
+    return redirect('index')
 
 
 
 
-
-def product_detail(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
-    context = {
-        'product': product
-    }
-    return render(request, 'detail.html', context)
 
 # admin side views
 

@@ -1,5 +1,4 @@
 from django import forms
-
 from mainApp.models import Brand, Category, Product
 
 
@@ -23,3 +22,6 @@ class ProductForm(forms.ModelForm):
                 pass
         elif self.instance.pk:
             self.fields['brand'].queryset = self.instance.category.brand_set
+            
+
+

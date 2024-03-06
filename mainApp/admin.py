@@ -7,4 +7,6 @@ admin.site.register(Slides)
 admin.site.register(Category)
 admin.site.register(Brand)
 admin.site.register(Product)
+admin.site.register(OrderItem)
+admin.site.register(Order)
 

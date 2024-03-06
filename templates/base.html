@@ -23,7 +23,7 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styl.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -44,7 +44,7 @@
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My
                             Account</button>
                         <div class="dropdown-menu dropdown-menu-right">
-                         <a href="{% url 'adminview' %}">  <button class="dropdown-item" type="button">Sign in</button></a> 
+                         <a href="">  <button class="dropdown-item" type="button">Sign in</button></a> 
                             <button class="dropdown-item" type="button">Sign up</button>
                         </div>
                     </div>
@@ -156,7 +156,14 @@
                     <a href="{% url 'cart_detail' %}" class="btn px-0 ml-3">
                         <i class="fas fa-shopping-cart text-primary d-lg-none"></i>
                         <span class="badge text-secondary border border-secondary rounded-circle d-lg-none"
-                            style="padding-bottom: 2px;">0</span>
+                            style="padding-bottom: 2px;">
+                            {% if request.session.cart_items_count %}
+                            {{ request.session.cart_items_count }}
+                        {% else %}
+                            0
+                        {% endif %}
+                        
+                        </span>
                     </a>
                     <!-- <a href="" class="btn px-0 ml-3">
                         <i class="fas fa-user text-primary"></i>
@@ -186,11 +193,18 @@
                                 <span class="badge text-secondary border border-secondary rounded-circle"
                                     style="padding-bottom: 2px;">0</span>
                             </a>
-                            <a href="{% url 'cart_detail' %}" class="btn px-0 ml-3">
-                                <i class="fas fa-shopping-cart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle"
-                                    style="padding-bottom: 2px;">0</span>
-                            </a>
+             <!-- base.html -->
+<a href="{% url 'cart_detail' %}" class="btn px-0 ml-3">
+    <i class="fas fa-shopping-cart text-primary"></i>
+    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+        {% if request.session.cart_items_count %}
+            {{ request.session.cart_items_count }}
+        {% else %}
+            0
+        {% endif %}
+    </span>
+</a>
+
                         </div>
                     </div>
                 </nav>
@@ -299,8 +313,7 @@
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Register</a>
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>My Orders
                             </a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>
-                            </a>
+                        
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
                             <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                         </div>
@@ -322,7 +335,7 @@
         <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-secondary">
-                    &copy; <a class="text-primary" href="#">www.appliancesuganda.com</a>. All Rights Reserved. Designed
+                    &copy; <a class="text-primary" href="#">www.appliancesuganda.com</a>. All Rights Reserved. 
 
                 </p>
             </div>

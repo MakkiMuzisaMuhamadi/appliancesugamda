@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 
@@ -8,8 +9,8 @@
     <div class="row px-xl-5">
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="#">Home</a>
-                <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                <a class="breadcrumb-item text-dark" href="{% url 'index' %}">Home</a>
+                <a class="breadcrumb-item text-dark" href="#">Products</a>
                 <span class="breadcrumb-item active">Shopping Cart</span>
             </nav>
         </div>
@@ -41,16 +42,17 @@
 
                         </td>
                         <td class="align-middle">{{ item.product.name }}</td>
-                        <td class="price align-middle">{{ item.product.price }}</td>
+                        <td class="price align-middle">{{ item.product.price|intcomma }}</td>
                         <td class="align-middle">{{ item.quantity }}
                         </td>
-                        <td class="total align-middle">{{ item.total_price }}</td>
+                        <td class="total align-middle">{{ item.total_price|intcomma }}</td>
                         <td class="align-middle">
                             <form method="post" action="{% url 'delete_item' %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="item_id" value="{{ item.id }}">
-                                <button type="submit" class="btn btn-sm btn-danger delete-item-btn"><i class="fa fa-trash"></i></button>
-                            </form> 
+                                <button type="submit" class="btn btn-sm btn-danger delete-item-btn"><i
+                                        class="fa fa-trash"></i></button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}
@@ -76,9 +78,14 @@
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
                         <h5>Total</h5>
-                        <h5 class="total-price">UGX {{ total_price }}</h5>
+                        <h5 class="total-price">UGX {{ total_price|intcomma }}</h5>
                     </div>
-                    <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                    {% if request.session.cart_items_count > 0 %}
+                    <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+                {% else %}
+                    <button class="btn btn-primary" disabled>Proceed to Checkout</button>
+                    <p class="text-danger">Your cart is empty. Add items to proceed to checkout.</p>
+                {% endif %}
                 </div>
             </div>
         </div>

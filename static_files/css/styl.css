@@ -9889,12 +9889,21 @@ a.text-dark:hover, a.text-dark:focus {
   font-size: 12px;
 }
 
-.add-to-cart-btn .btn {
+.add-to-cart-btn .btn{
   flex: 1;
   background-color: var(--orange) !important;
   color: var(--light) !important;
   width: 80px;
   height: 30px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.form-btn{
+  flex: 1 !important;
+  background-color: var(--orange) !important;
+  color: var(--light) !important;
+  width: 80px !important;
+  height: 30px !important;
   border-radius: 5px;
   font-size: 12px;
 }
@@ -10026,4 +10035,184 @@ a.text-dark:hover, a.text-dark:focus {
     padding-right: 3px;
     border-radius: 5px; 
     z-index: 999;
+}
+
+
+.responsive-image {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.responsive-image img {
+  width: 100%;
+  height: auto;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease;
+}
+
+.responsive-image img.active {
+  display: block;
+  opacity: 1;
+}
+
+@media only screen and (min-width: 768px) {
+  .responsive-image {
+      height: 400px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .responsive-image {
+      height: 150px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .brand-new-text {
+      font-size: 8px;
+  }
+
+  .share-icon {
+      font-size: 8px;
+      right: 2px;
+  }
+
+  .share-icon span {
+      font-size: 8px;
+      right: 2px;
+  }
+}
+
+.discount-container {
+  display: flex;
+  align-items: baseline;
+  margin-left: 7px;
+
+}
+
+.discount-amount {
+  margin-right: 6px;
+  font-size: 12px;
+  text-decoration: line-through;
+}
+
+.discount-percent {
+  font-size: 12px;
+  background-color: #f7e8b2;
+  /* padding: 2px 4px;  */
+}
+
+
+
+
+.toast { 
+  position: fixed; 
+  top: 25px; 
+  right: 25px; 
+  max-width: 300px; 
+  background: #fff; 
+  padding: 0.5rem; 
+  border-radius: 4px; 
+  box-shadow: -1px 1px 10px
+      rgba(0, 0, 0, 0.3); 
+  z-index: 1023; 
+  animation: slideInRight 0.3s 
+          ease-in-out forwards, 
+      fadeOut 5s ease-in-out 
+          forwards 3s; 
+  transform: translateX(110%); 
+} 
+
+.toast.closing { 
+  animation: slideOutRight 0.5s 
+      ease-in-out forwards; 
+} 
+
+.toast-progress { 
+  position: absolute; 
+  display: block; 
+  bottom: 0; 
+  left: 0; 
+  height: 4px; 
+  width: 100%; 
+  background: #b7b7b7; 
+  animation: toastProgress 3s 
+      ease-in-out forwards; 
+} 
+
+.toast-content-wrapper { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+} 
+
+.toast-icon { 
+  padding: 0.35rem 0.5rem; 
+  font-size: 1.5rem; 
+} 
+
+.toast-message { 
+  flex: 1; 
+  font-size: 0.9rem; 
+  color: #000000; 
+  padding: 0.5rem; 
+} 
+
+.toast.toast-success { 
+  background: #95eab8; 
+} 
+
+.toast.toast-success .toast-progress { 
+  background-color: #2ecc71; 
+}
+@keyframes slideInRight { 
+  0% { 
+      transform: translateX(110%); 
+  } 
+
+  75% { 
+      transform: translateX(-10%); 
+  } 
+
+  100% { 
+      transform: translateX(0%); 
+  } 
+} 
+
+@keyframes slideOutRight { 
+  0% { 
+      transform: translateX(0%); 
+  } 
+
+  25% { 
+      transform: translateX(-10%); 
+  } 
+
+  100% { 
+      transform: translateX(110%); 
+  } 
+} 
+
+@keyframes fadeOut { 
+  0% { 
+      opacity: 1; 
+  } 
+
+  100% { 
+      opacity: 0; 
+  } 
+} 
+
+@keyframes toastProgress { 
+  0% { 
+      width: 100%; 
+  } 
+
+  100% { 
+      width: 0%; 
+  } 
 }
