@@ -8,6 +8,7 @@ from .forms import ProductForm
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.sessions.backends.db import SessionStore
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def index(request):
     slide = Slides.objects.all()
@@ -123,8 +124,20 @@ def place_order(request):
     messages.success(request, 'Your Order has been received, We shall contact you soon')
     return redirect('index')
 
+def buy_now(request):
+    order2 = BuyNow2.objects.create(
+        name = request.POST.get('name'),
+        phone_number = request.POST.get('phone_number'),
+        product_name = request.POST.get('product_name'),
+        product_price = request.POST.get('product_price'),
+        product_id = request.POST.get('product_id'),
+        product_brand = request.POST.get('product_brand'),
+        product_category = request.POST.get('product_category'),
+    )
+    order2.save()
 
-
+    messages.success(request, 'Your Order has been received, We shall contact you soon')
+    return redirect('index')
 
 
 # admin side views

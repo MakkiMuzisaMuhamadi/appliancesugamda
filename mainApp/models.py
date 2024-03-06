@@ -53,3 +53,14 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField()
    
 
+class BuyNow2(models.Model):
+    name = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=20)
+    product_name = models.CharField(max_length=255)
+    product_price = models.DecimalField(max_digits=10, decimal_places=2, default='')
+    product_id = models.CharField(max_length=255)
+    product_brand = models.CharField(max_length=255, default='')
+    product_category = models.CharField(max_length=255, default='')
+
+    def __str__(self):
+        return f"{self.name}'s Order for {self.product_name}"

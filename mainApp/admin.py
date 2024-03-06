@@ -9,4 +9,5 @@ admin.site.register(Brand)
 admin.site.register(Product)
 admin.site.register(OrderItem)
 admin.site.register(Order)
+admin.site.register(BuyNow2)
 

@@ -8,6 +8,7 @@ urlpatterns = [
     path('delete_item/', views.delete_item, name='delete_item'),
     path('checkout/', views.checkout, name='checkout'),
     path('place_order/', views.place_order, name='place_order'),
+    path('buy-now/', views.buy_now, name='buy_now'),
             # admin urls
     path('adminview/',views.adminview,name="adminview"),
     path('create/', views.create_product, name='create_product'),
