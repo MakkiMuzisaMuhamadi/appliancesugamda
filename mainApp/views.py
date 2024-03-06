@@ -27,6 +27,17 @@ def index(request):
         'products': products,
          }   
     return render (request, 'index.html', context)
+def shopDetail(request):
+    categories = Category.objects.all()
+    session_key = request.session.session_key
+    cart_items = CartItem.objects.filter(session_key=session_key)
+    cart_items_count = sum(item.quantity for item in cart_items)
+    request.session['cart_items_count'] = cart_items_count
+
+    context = {
+        'categories': categories,
+         }   
+    return render (request, 'shopDetail.html', context)
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
