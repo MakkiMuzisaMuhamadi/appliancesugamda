@@ -10,7 +10,9 @@
 
     <!-- Favicon -->
     <link href="{% static 'img/favicon.ico' %}" rel="icon">
-
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -336,8 +338,9 @@
         <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-secondary">
-                    &copy; <a class="text-primary" href="#">www.appliancesuganda.com</a>. All Rights Reserved.
-
+                    &copy; {% now "Y" %} <a class="text-primary" href="https://www.appliancesuganda.com" target="_blank">www.appliancesuganda.com</a>. All Rights Reserved. Designed
+                    by
+                    <a class="text-primary" href="https://bionluxe.com" target="_blank">Bio n Luxe</a>
                 </p>
             </div>
             <div class="col-md-6 px-xl-0 text-center text-md-right">
