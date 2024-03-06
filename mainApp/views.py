@@ -50,6 +50,25 @@ def product_detail(request, product_id):
         'product': product
     }
     return render(request, 'detail.html', context)
+from django.shortcuts import render
+from .models import Product
+
+def product_search(request):
+    query = request.GET.get('q', '')
+
+    # Filter products based on the search query
+    products = Product.objects.filter(
+        models.Q(name__icontains=query)
+        # models.Q(category__name__icontains=query) | 
+        # models.Q(brand__name__icontains=query) 
+    )
+
+    context = {
+        'products': products,
+        'query': query,
+    }
+
+    return render(request, 'search.html', context)
 
 #  cart views
 def add_to_cart(request, product_id):
