@@ -88,6 +88,12 @@ def add_to_cart(request, product_id):
     # Return a JSON response with the message and status
     response_data = {'message': 'Product added to the cart successfully', 'status': 'success'}
     return JsonResponse(response_data)
+
+def get_cart_count(request):
+    session_key = request.session.session_key
+    cart_count = CartItem.objects.filter(session_key=session_key).count()
+    return JsonResponse({'count': cart_count})
+
 def cart_detail(request):
     session_key = request.session.session_key
     cart_items = CartItem.objects.filter(session_key=session_key)

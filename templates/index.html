@@ -102,13 +102,13 @@
                             <form action="{% url 'add_to_cart' pr.id %}" method="post">
                                 {% csrf_token %}
                                 <button data-product-id="{{ pr.id }}" type="submit" id="add"
-                                    class="btn btn-primary custom-toast   success-toast">ADD TO CART</button>
+                                    class="btn btn-primary custom-toast   success-toast" >ADD TO CART</button>
 
                             </form>
 
                             <a href="tel:+256700585354" class="call-icon d-lg-none">
                                 <div class="icon">
-                                    <i class="fa fa-phone-alt"></i>
+                                    <i class="fa fa-phone-alt" style="color: #4ca0fa;"></i>
                                 </div>
                                 <div class="name">
                                     <span style="margin-left: 10px; color: #343a40;">Call</span>
@@ -124,153 +124,23 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        // Handle category button click
-        $('.tablinks').on('click', function () {
-            var categoryId = $(this).data('category-id');
-
-            // Hide all products
-            $('.brandcontent').hide();
-
-            // Show products related to the selected category
-            if (categoryId === undefined) {
-                $('.brandcontent').show(); // Show all products if "All" is selected
-            } else {
-                // Show products related to the selected category
-                $('.brandcontent[data-product-category-id="' + categoryId + '"]').show();
-            }
-
-            // Hide brands not related to the selected category
-            $('.brand').hide();
-            $('.brand[data-brand-category-id="' + categoryId + '"]').show();
-        });
-
-        // Handle brand button click
-        $('.brand').on('click', function () {
-            var brandCategoryId = $(this).data('brand-category-id');
-
-            // Hide all products
-            $('.brandcontent').hide();
-
-            // Show products related to the selected brand category
-            if (brandCategoryId === 'all') {
-                $('.brandcontent').show(); // Show all products if "All" is selected
-            } else {
-                // Show products related to the selected brand category
-                $('.brandcontent[data-product-brand-id="' + brandCategoryId + '"]').show();
-            }
-        });
-    });
-
-    $(document).ready(function () {
-        setTimeout(function () {
-            $('.fh5co-loader').fadeOut();
-
-            $('.container-fluid').fadeIn();
-        }, 3000);
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var slides = document.querySelectorAll('.responsive-image img');
-        var currentSlide = 0;
-        var slideInterval = setInterval(nextSlide, 6000);
-
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-    });
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var addToCartButtons = document.querySelectorAll('.add-to-cart-btn button');
-
-        addToCartButtons.forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                event.preventDefault();
-                var productId = this.getAttribute('data-product-id');
-                addToCart(productId);
-            });
-        });
-
-        function addToCart(productId) {
-            // Make an asynchronous request to the server to add the product to the cart
-            fetch("{% url 'add_to_cart' 0 %}".replace('0', productId), {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Display the flash message
-                    showToast(data.message, data.status, 100000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-
-        function showToast(message, status, duration) {
-            // Your showToast function remains the same
-            // ...
-
-            let box = document.createElement("div");
-            box.classList.add(
-                "toast", `toast-${status}`); // Change toastType to status
-            box.innerHTML = `<div class="toast-content-wrapper">
-                          
-                            <div class="toast-message">${message}</div>
-                            <div class="toast-progress"></div>
-                        </div>`;
-            duration = duration || 5000;
-            box.querySelector(".toast-progress").style.animationDuration =
-                `${duration / 1000}s`;
-
-            let toastAlready =
-                document.body.querySelector(".toast");
-            if (toastAlready) {
-                toastAlready.remove();
-            }
-
-            document.body.appendChild(box);
-        }
-
-        // Change the class to 'custom-toast' instead of 'custom-toast.success-toast'
-        let submit = document.querySelector(".custom-toast");
-
-        submit.addEventListener("click", (e) => {
-            showToast("Article Submitted Successfully", "success", 100000);
-        });
-
-        warn.addEventListener("click", (e) => {
-            e.preventDefault();
-            showToast("!warning! server error", "warning", 5000);
-        });
-    });
-    setTimeout(function () {
-        document.getElementById('message-container').style.display = 'none';
-    }, 9000);
-
-</script>
 
 <style>
-    .fh5co-loader {
-        position: fixed;
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        height: 100%;
-        z-index: 9999;
-        background: url(static/img/loader5.gif) center no-repeat white;
-        align-items: center;
-    }
+.fh5co-loader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(static/img/loader4.gif) center center no-repeat #FFFFFF;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 
     #add {
         width: 300px;
@@ -279,6 +149,7 @@
     @media (max-width: 767px) {
         #add {
             width: 140px;
+            left: 30px;
 
         }
 

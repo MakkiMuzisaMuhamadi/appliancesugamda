@@ -78,7 +78,7 @@
                 <div class="d-flex align-items-center mb-4 pt-2">
                     <form action="{% url 'add_to_cart' product.id %}" method="post">
                         {% csrf_token %}
-                        <div class="addcart">
+                        <div class="add-to-cart-btn">
                             <button data-product-id="{{ product.id }}" type="submit" class="btn btn-primary btn-minus">
                                 <i class="fa fa-shopping-cart"></i>
                             </button>
@@ -124,7 +124,6 @@
 </div>
 
 
-<!-- Modal -->
 <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -213,96 +212,21 @@
             'product_category': productCategory
         };
 
-        // AJAX request to submit the form data to the Django view
         $.ajax({
             type: 'POST',
-            url: '',  // Replace with the actual URL of your Django view
+            url: '', 
             data: data,
             success: function (response) {
-                // Handle the response from the server (e.g., display a success message)
                 console.log(response);
             },
             error: function (error) {
-                // Handle the error (e.g., display an error message)
                 console.error('Error:', error);
             }
         });
 
-        // Optionally, you can close the modal
         $('#buyModal').modal('hide');
     }
 </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var addToCartButtons = document.querySelectorAll('.addcart button');
-
-        addToCartButtons.forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                event.preventDefault();
-                var productId = this.getAttribute('data-product-id');
-                addToCart(productId);
-            });
-        });
-
-        function addToCart(productId) {
-            // Make an asynchronous request to the server to add the product to the cart
-            fetch("{% url 'add_to_cart' 0 %}".replace('0', productId), {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Display the flash message
-                    showToast(data.message, data.status, 100000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-
-        function showToast(message, status, duration) {
-            // Your showToast function remains the same
-            // ...
-
-            let box = document.createElement("div");
-            box.classList.add(
-                "toast", `toast-${status}`); // Change toastType to status
-            box.innerHTML = `<div class="toast-content-wrapper">
-                          
-                            <div class="toast-message">${message}</div>
-                            <div class="toast-progress"></div>
-                        </div>`;
-            duration = duration || 5000;
-            box.querySelector(".toast-progress").style.animationDuration =
-                `${duration / 1000}s`;
-
-            let toastAlready =
-                document.body.querySelector(".toast");
-            if (toastAlready) {
-                toastAlready.remove();
-            }
-
-            document.body.appendChild(box);
-        }
-
-        // Change the class to 'custom-toast' instead of 'custom-toast.success-toast'
-        let submit = document.querySelector(".custom-toast");
-
-        submit.addEventListener("click", (e) => {
-            showToast("Article Submitted Successfully", "success", 100000);
-        });
-
-        warn.addEventListener("click", (e) => {
-            e.preventDefault();
-            showToast("!warning! server error", "warning", 5000);
-        });
-    });
-
-</script>
 
 {% endblock %}

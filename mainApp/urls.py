@@ -11,6 +11,7 @@ urlpatterns = [
     path('buy-now/', views.buy_now, name='buy_now'),
     path('shop-details/', views.shopDetail, name='shopDetail'),
     path('search/', views.product_search, name='product_search'),
+    path('get_cart_count/', views.get_cart_count, name='get_cart_count'),
     path('category/<int:category_id>/', views.category_products, name='category_products'),
             # admin urls
     path('adminview/',views.adminview,name="adminview"),
