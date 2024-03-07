@@ -198,7 +198,7 @@
                                         class="fa fa-angle-down mt-1"></i></a>
                                 <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
                                     {% for c in categories%}
-                                    <a href="" class="dropdown-item">{{c.name}}</a>
+                                    <a href="{% url 'category_products' c.id %}" class="dropdown-item">{{c.name}}</a>
 
                                     {% endfor %}
                                 </div>
@@ -297,12 +297,14 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
        
-        <h5 style="color: darkgoldenrod; font-weight: bold;"> <span> <i class="fa fa-list"></i></span>&nbsp; Categories</h5>
-        {% for c2 in categories%}
-        <a href="#">{{c2.name}}</a>
+        <h5 style="color: darkgoldenrod; font-weight: bold;">
+            <span><i class="fa fa-list"></i></span>&nbsp; Categories
+        </h5>
+        {% for category in categories %}
+            <a href="{% url 'category_products' category.id %}">{{ category.name }}</a>
         {% endfor %}
     </div>
-
+    
     {% block content %}
 
     {% endblock %}

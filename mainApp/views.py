@@ -45,9 +45,12 @@ def product_detail(request, product_id):
     cart_items = CartItem.objects.filter(session_key=session_key)
     cart_items_count = sum(item.quantity for item in cart_items)
     request.session['cart_items_count'] = cart_items_count
+    categories = Category.objects.all()
 
     context = {
-        'product': product
+        'product': product,
+        'categories': categories,
+
     }
     return render(request, 'detail.html', context)
 from django.shortcuts import render
@@ -62,10 +65,12 @@ def product_search(request):
         # models.Q(category__name__icontains=query) | 
         # models.Q(brand__name__icontains=query) 
     )
+    categories = Category.objects.all()
 
     context = {
         'products': products,
         'query': query,
+        'categories': categories,
     }
 
     return render(request, 'search.html', context)
@@ -93,9 +98,11 @@ def cart_detail(request):
     # Calculate the final total of all products
     total_price = sum(item.total_price for item in cart_items)
     request.session['cart_items_count'] = cart_items_count
+    categories = Category.objects.all()
     context = {
         'cart_items': cart_items,
         'total_price': total_price,
+        'categories': categories,
     }
     return render(request, 'cart.html', context)
 
@@ -104,7 +111,7 @@ def cart_detail(request):
 def checkout(request):
     session_key = request.session.session_key
     cart_items = CartItem.objects.filter(session_key=session_key)
-
+    categories = Category.objects.all()
     # Calculate total price for each item in the cart
     for item in cart_items:
         item.total_price = item.product.price * item.quantity
@@ -115,6 +122,7 @@ def checkout(request):
     context = {
         'cart_items': cart_items,
         'total_price': total_price,
+        'categories': categories,
     }
 
     return render(request, 'checkout.html', context)
@@ -169,7 +177,16 @@ def buy_now(request):
     messages.success(request, 'Your Order has been received, We shall contact you soon')
     return redirect('index')
 
-
+def category_products(request, category_id):
+    categories = Category.objects.all()
+    category2 = get_object_or_404(Category, id=category_id)
+    products = Product.objects.filter(category=category2)
+    context = {
+        'category2': category2,
+        'categories': categories,
+        'products': products,
+        }
+    return render(request, 'category_products.html', context)
 # admin side views
 
 def adminview(request):
