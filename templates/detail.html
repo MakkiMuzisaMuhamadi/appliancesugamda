@@ -84,10 +84,12 @@
                             </button>
                         </div>
                     </form>
-                    <button class="btn btn-primary custom-btn" style="background-color: #fd7e14; flex-grow: 1; min-width: 0;" data-toggle="modal" data-target="#buyModal">
+                    <button class="btn btn-primary custom-btn"
+                        style="background-color: #fd7e14; flex-grow: 1; min-width: 0;" data-toggle="modal"
+                        data-target="#buyModal">
                         <div style="color: white;">Buy Now</div>
                     </button>
-                    
+
                     <a href="tel:+256700585354">
                         <button class="btn btn-primary btn-minus">
                             <i class="fa fa-phone-alt"></i>
@@ -98,9 +100,6 @@
                 <p class="mb-4">{{product.description}}
 
                 </p>
-
-
-
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Share on:</strong>
                     <div class="d-inline-flex">
@@ -136,7 +135,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="buyForm"  action="{% url 'buy_now' %}" method="post">
+                <form id="buyForm" action="{% url 'buy_now' %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -148,23 +147,28 @@
                     </div>
                     <div class="form-group">
                         <label for="productName">Product Name</label>
-                        <input type="text" class="form-control" id="productName" value="{{ product.name }}" name="product_name" readonly>
+                        <input type="text" class="form-control" id="productName" value="{{ product.name }}"
+                            name="product_name" readonly>
                     </div>
                     <div class="form-group">
                         <label for="productPrice">Product Price</label>
-                        <input type="text" class="form-control" id="productPrice" value="{{ product.price }}" name="product_price" readonly>
+                        <input type="text" class="form-control" id="productPrice" value="{{ product.price }}"
+                            name="product_price" readonly>
                     </div>
                     <div class="form-group" style="display: none;">
                         <label for="productID">Product ID</label>
-                        <input type="text" class="form-control" id="productID" value="{{ product.id }}" name="product_id" readonly>
+                        <input type="text" class="form-control" id="productID" value="{{ product.id }}"
+                            name="product_id" readonly>
                     </div>
                     <div class="form-group">
                         <label for="productBrand">Product Brand</label>
-                        <input type="text" class="form-control" id="productBrand" value="{{ product.brand }}" name="product_brand" readonly>
+                        <input type="text" class="form-control" id="productBrand" value="{{ product.brand }}"
+                            name="product_brand" readonly>
                     </div>
                     <div class="form-group">
                         <label for="productCategory">Product Category</label>
-                        <input type="text" class="form-control" id="productCategory" value="{{ product.category }}" name="product_category" readonly>
+                        <input type="text" class="form-control" id="productCategory" value="{{ product.category }}"
+                            name="product_category" readonly>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -172,61 +176,61 @@
                     </div>
                 </form>
             </div>
- 
+
         </div>
     </div>
 </div>
 
 
 <script>
-function submitForm() {
-    // Fetch values from the form
-    var name = document.getElementById('name').value;
-    var phoneNumber = document.getElementById('phoneNumber').value;
+    function submitForm() {
+        // Fetch values from the form
+        var name = document.getElementById('name').value;
+        var phoneNumber = document.getElementById('phoneNumber').value;
 
-    // Check if name and phone number are not empty
-    if (name.trim() === '' || phoneNumber.trim() === '') {
-        // Display an alert or handle the case where the fields are empty
-        alert('Name and phone number are required fields.');
-        return;
-    }
-
-    // Rest of the code for handling form submission
-    var productName = document.getElementById('productName').value;
-    var productPrice = document.getElementById('productPrice').value;
-    var productID = document.getElementById('productID').value;
-    var productBrand = document.getElementById('productBrand').value;
-    var productCategory = document.getElementById('productCategory').value;
-
-    // Create a data object to send via AJAX
-    var data = {
-        'name': name,
-        'phone_number': phoneNumber,
-        'product_name': productName,
-        'product_price': productPrice,
-        'product_id': productID,
-        'product_brand': productBrand,
-        'product_category': productCategory
-    };
-
-    // AJAX request to submit the form data to the Django view
-    $.ajax({
-        type: 'POST',
-        url: '',  // Replace with the actual URL of your Django view
-        data: data,
-        success: function(response) {
-            // Handle the response from the server (e.g., display a success message)
-            console.log(response);
-        },
-        error: function(error) {
-            // Handle the error (e.g., display an error message)
-            console.error('Error:', error);
+        // Check if name and phone number are not empty
+        if (name.trim() === '' || phoneNumber.trim() === '') {
+            // Display an alert or handle the case where the fields are empty
+            alert('Name and phone number are required fields.');
+            return;
         }
-    });
 
-    // Optionally, you can close the modal
-    $('#buyModal').modal('hide');
-}
+        // Rest of the code for handling form submission
+        var productName = document.getElementById('productName').value;
+        var productPrice = document.getElementById('productPrice').value;
+        var productID = document.getElementById('productID').value;
+        var productBrand = document.getElementById('productBrand').value;
+        var productCategory = document.getElementById('productCategory').value;
+
+        // Create a data object to send via AJAX
+        var data = {
+            'name': name,
+            'phone_number': phoneNumber,
+            'product_name': productName,
+            'product_price': productPrice,
+            'product_id': productID,
+            'product_brand': productBrand,
+            'product_category': productCategory
+        };
+
+        // AJAX request to submit the form data to the Django view
+        $.ajax({
+            type: 'POST',
+            url: '',  // Replace with the actual URL of your Django view
+            data: data,
+            success: function (response) {
+                // Handle the response from the server (e.g., display a success message)
+                console.log(response);
+            },
+            error: function (error) {
+                // Handle the error (e.g., display an error message)
+                console.error('Error:', error);
+            }
+        });
+
+        // Optionally, you can close the modal
+        $('#buyModal').modal('hide');
+    }
 </script>
 
 <script>

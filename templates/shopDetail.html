@@ -3,12 +3,23 @@
 {% load humanize %}
 
 {% block content %}
-
-<p style="margin-left: 30px; margin-right: 20px;">
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12" style="font-size: 12px;">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="{% url 'index' %}">Home</a>
+                <a class="breadcrumb-item text-dark" href="{% url 'shopDetail' %}">About us</a>
+                <span class="breadcrumb-item active">Appliances Uganda</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container-fluid pb-5">
+<p>
     We commenced our journey as a retail appliances group in 2000 with a strong vision to grow, over the last 23+ years. Starting with just a single store, Appliances Uganda has grown to operate over 50+ retail outlets throughout Uganda catering to an average annual customer base of more than 5 million walk-ins!
 Evolving to more than just retail outlets, we are proud to announce the launch of our official online portal appliancesuganda.com where we offer a wide range of products that cater to daily home and personal needs including home appliances,  accessories, phones,soundsystems,  television,computers, gaming equipments from the world best brand including Apple, LG, BOSCH, WHIRLPOOL, SAMSUNG, GE, KITCHEN AID, MAYTAG, MIELE, ELECTROLUX,  FRIGIDAIRE, HAIER, PANASONIC, GAGGENAU HAUSGERÄTE, THERMADOR, HOTPOINT, KENMORE, CAFE, PHILIPS, VIKING, BEKO, INDESIT, JENN AIR, SMEG, BAJAJ, HISENSE, ONEPLUS, TECHNO, XIOMI, OPPO, SONNY, AQUOS, INFINIX, JBL, VIVO, HUAWEI, HP, NOKIA, REALME, DELL, XBOX, SHARP, POCO, ITEL, MICROSOFT, ZTE, TOSHIBA,  MOTOROLA,  PHILIPS. Be at ease when you shop online at appliancesuganda.com with our various secure payment options, express delivery service or friendly customer care hotline +256 700 585354 / appliancesuganda@gmail.com available 24/7.
 We stock the largest range of products within Uganda in numerous categories  including home appliances,  accessories, phones,soundsystems,  television,computers, gaming equipments and loads more from world-class brands. Don’t miss out on our Special Offers with Best Prices Guaranteed products by subscribing to our notification reminder!
 </p>
 
-
+</div>
 {% endblock %}
