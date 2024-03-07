@@ -102,3 +102,11 @@
     
 })(jQuery);
 
+function openNav(event) {
+    event.preventDefault(); // Prevents the default behavior of the anchor tag
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
