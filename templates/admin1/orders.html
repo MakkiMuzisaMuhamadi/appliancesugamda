@@ -1,0 +1,98 @@
+{% extends 'admin1/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    table {
+        width: 300%; 
+        border-collapse: collapse;
+    }
+
+    table td, table th {
+        padding: 8px;
+        border: 1px solid #ddd;
+        /* text-align: center;  */
+        width: auto;
+    }
+
+    @media only screen and (max-width: 600px) {
+        table td, table th {
+            padding: 6px;
+        }
+    }
+
+    .product-image {
+        width: 50px; 
+        height: auto; 
+        display: block;
+        margin: 0 auto; 
+    }
+
+    .delete-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .messages {
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+
+    }
+
+</style>
+
+<div class="main">
+    <div class="toggle">
+        <ion-icon name="menu-outline"></ion-icon>
+    </div>
+
+    <div class="details">
+        <div class="recentOrders2">
+            <div class="cardHeader">
+            </div>
+            <ul>
+                {% for order in orders %}
+                    <li>
+                        <strong>Order Id : {{ order.id }}</strong><br>
+                        <strong>{{ order.first_name }} {{ order.last_name }}</strong><br>
+                        Email: {{ order.email }}<br>
+                        Phone: {{ order.phone }}<br>
+                        Address: {{ order.address }}, {{ order.city }}, {{ order.country }}<br>
+                        Created At: {{ order.created_at }}
+                        <br><br>
+                      <strong> items on Order</strong> 
+                        <ul>
+                            {% for item in order.items.all %}
+                                <li>{{ item.product.name }} - Quantity: {{ item.quantity }}</li>
+                            {% endfor %}
+                        </ul>
+                        <!-- <form method="post" action="{% url 'delete_order' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="order_id" value="{{ order.id }}">
+                            <button class="delete-btn">Delete</button>
+                            
+                        </form> -->
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

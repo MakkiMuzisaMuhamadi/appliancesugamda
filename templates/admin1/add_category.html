@@ -1,0 +1,79 @@
+{% extends 'admin1/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    /* Example CSS for styling form */
+    #product-form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #product-form label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    #product-form input[type="text"],
+    #product-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    #product-form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    #product-form button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #success-message {
+        display: none;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #dff0d8;
+        border: 1px solid #c3e6cb;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="main">
+    <div class="toggle">
+        <ion-icon name="menu-outline"></ion-icon>
+    </div>
+    <div id="success-message" style="display: none;">
+        Category saved successfully.
+    </div>
+    <form id="product-form" method="post" enctype="multipart/form-data">
+        <h3>Add Category</h3>
+<br><br>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    
+
+</div>
+</div>
+
+{% endblock %}

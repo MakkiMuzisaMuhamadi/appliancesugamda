@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 urlpatterns = [
     path('',views.index,name="index"),
+    path('login/', views.login, name='login'),
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),
     path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('cart/', views.cart_detail, name='cart_detail'),
@@ -14,7 +15,18 @@ urlpatterns = [
     path('get_cart_count/', views.get_cart_count, name='get_cart_count'),
     path('category/<int:category_id>/', views.category_products, name='category_products'),
             # admin urls
-    path('adminview/',views.adminview,name="adminview"),
+    path('admin-applianceuganda',views.admin1,name="admin-applianceuganda"),
     path('create/', views.create_product, name='create_product'),
     path('get_brands/', views.get_brands, name='get_brands'),
+    path('product-list/', views.productList, name='productList'),
+    path('category-list/', views.categoryList, name='categoryList'),
+    path('brand-list/', views.brandList, name='brandList'),
+    path('delete-product', views.delete_product, name='delete_product'),
+    path('delete-category', views.delete_category, name='delete_category'),
+    path('delete-brand', views.delete_brand, name='delete_brand'),
+    path('delete-order', views.delete_order, name='delete_order'),
+    path('add-category/', views.add_category, name='add-category'),
+    path('add-brand/', views.add_brand, name='add-brand'),
+    path('orders/', views.order_list, name='order_list'),
+    path('get_items/<int:order_id>/', views.get_items, name='get_items'),
 ]

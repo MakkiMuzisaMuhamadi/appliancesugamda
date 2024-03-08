@@ -4,12 +4,33 @@ from django.shortcuts import redirect, render,  get_object_or_404
 from mainApp.forms import ProductForm
 from mainApp.models import *
 from django.shortcuts import render, redirect
-from .forms import ProductForm
+from .forms import BrandForm, CategoryForm, ProductForm
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.sessions.backends.db import SessionStore
-from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
+from datetime import datetime, timedelta
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login
+
+
+def login(request):
+    error_message = None
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_staff:
+                auth_login(request, user)
+                return redirect('/admin1/')
+            else:
+                return redirect('index')
+        else:
+            error_message = 'Invalid username or password'
+    return render(request, 'login.html', {'error_message': error_message})
+
+
+
 def index(request):
     slide = Slides.objects.all()
     categories = Category.objects.all()
@@ -53,9 +74,6 @@ def product_detail(request, product_id):
 
     }
     return render(request, 'detail.html', context)
-from django.shortcuts import render
-from .models import Product
-
 def product_search(request):
     query = request.GET.get('q', '')
 
@@ -193,16 +211,21 @@ def category_products(request, category_id):
         'products': products,
         }
     return render(request, 'category_products.html', context)
-# admin side views
 
-def adminview(request):
+
+# admin side views
+def admin1(request):
+    products2 = Product.objects.all()
     categories = Category.objects.all()
-    
+    orders = Order.objects.all()
+    brands = Brand.objects.all()
     context = {
         'categories': categories,
+        'orders': orders,
+        'products': products2,
+        'brands': brands,
          }   
-    return render (request, 'admin2/index.html', context)
-
+    return render (request, 'admin1/index.html', context)
 
 def create_product(request):
     if request.method == 'POST':
@@ -214,8 +237,97 @@ def create_product(request):
             return JsonResponse({'success': False, 'errors': form.errors})
     else:
         form = ProductForm()
-    return render(request, 'admin2/products.html', {'form': form})
+    return render(request, 'admin1/products.html', {'form': form})
 def get_brands(request):
     category_id = request.GET.get('category_id')
     brands = Brand.objects.filter(category_id=category_id).values('id', 'name')
     return JsonResponse(list(brands), safe=False)
+def productList(request):
+    products = Product.objects.all()
+    
+    context = {
+        'products': products,
+         }   
+    return render (request, 'admin1/viewproduct.html', context)
+def categoryList(request):
+    categories = Category.objects.all()
+    context = {
+        'categories': categories,
+         }   
+    return render (request, 'admin1/categoryList.html', context)
+def brandList(request):
+    brands = Brand.objects.all()
+    context = {
+        'brands': brands,
+         }   
+    return render (request, 'admin1/brandList.html', context)
+def delete_product(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        product = Product.objects.get(id=product_id)
+        product.delete()
+    messages.success(request, 'Product Deleted Successfully')
+    return redirect('productList')
+def delete_category(request):
+    if request.method == 'POST':
+        category_id = request.POST.get('category_id')
+        category = Category.objects.get(id=category_id)
+        category.delete()
+    messages.success(request, 'Category Deleted Successfully')
+    return redirect('categoryList')
+def delete_brand(request):
+    if request.method == 'POST':
+        brand_id = request.POST.get('brand_id')
+        brand = Brand.objects.get(id=brand_id)
+        brand.delete()
+    messages.success(request, 'Brand Deleted Successfully')
+    return redirect('brandList')
+def add_category(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('categoryList')  
+    else:
+        form = CategoryForm()
+    return render(request, 'admin1/add_category.html', {'form': form})
+def add_brand(request):
+    if request.method == 'POST':
+        form = BrandForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('brandList') 
+    else:
+        form = BrandForm()
+    return render(request, 'admin1/add_brand.html', {'form': form})
+def order_list(request):
+    # Get orders ordered by creation date in descending order
+    orders = Order.objects.order_by('-created_at')
+
+    # Get the current date
+    current_date = datetime.now()
+
+    # Calculate the date one day ago
+    one_day_ago = current_date - timedelta(days=1)
+
+    return render(request, 'admin1/orders.html', {'orders': orders, 'one_day_ago': one_day_ago})
+def delete_order(request):
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        order = Order.objects.get(id=order_id)
+        order.delete()
+    messages.success(request, 'Order Deleted Successfully')
+    return redirect('order_list')
+def get_items(request, order_id):
+    # Retrieve items for the given order ID
+    items = OrderItem.objects.filter(order_id=order_id)
+
+    # Prepare data to be sent as JSON
+    items_data = []
+    for item in items:
+        items_data.append({
+            'product_name': item.product.name,
+            'quantity': item.quantity
+        })
+
+    return JsonResponse(items_data, safe=False)

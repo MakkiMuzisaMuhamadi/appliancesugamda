@@ -10,7 +10,7 @@
 }
 
 :root {
-  --blue: #2a2185;
+  --blue: #045ebe;
   --white: #fff;
   --gray: #f5f5f5;
   --black1: #222;
@@ -278,6 +278,15 @@ body {
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
 }
+.details .recentOrders2 {
+  position: relative;
+ 
+  min-height: 500px;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
 
 .details .cardHeader {
   display: flex;
@@ -431,6 +440,9 @@ body {
     grid-template-columns: 1fr;
   }
   .recentOrders {
+    overflow-x: auto;
+  }
+  .recentOrders2 {
     overflow-x: auto;
   }
   .status.inProgress {
