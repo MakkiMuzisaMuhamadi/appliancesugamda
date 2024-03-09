@@ -47,12 +47,15 @@ class Order(models.Model):
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
+    total_price = models.IntegerField(default=1)
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
-   
+    image = models.ImageField(upload_to='orders/', default='') 
+    price = models.IntegerField(default=1)
+
 
 class BuyNow2(models.Model):
     name = models.CharField(max_length=255)

@@ -1,7 +1,9 @@
 {% extends 'admin1/base.html' %}
-{% load static %}
 {% load humanize %}
+
 {% block content %}
+
+<h1>Order Detail</h1>
 
 <style>
     table {
@@ -67,47 +69,33 @@
             <div class="cardHeader">
             </div>
             <div class="cardHeader">
-                <h2> {{ orders|length }} Orders </h2>
+                <h2>Order Details of  {{ order.first_name }}</h2>
+                <a href="{% url 'order_list' %}" class="btn">Back to Orders</a>
             </div>
-            <table >
+            <div class="cardHeader">
+                <h2>Total Amount: UGX {{ order.total_price|intcomma }}.</h2>
+            </div>
+            <table>
                 <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Date</td>
-                        <td>Name</td>
-                        <td>Total Price</td>
-                        <td>Phone</td>
-                        <td>Email</td>
-                        <td>Address</td>
-                        <td>City</td>
-                        <td>Country</td>
-                        <td>View</td>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
                     </tr>
                 </thead>
-
-          
-                {% for order in orders %}
+                <tbody>
+                    {% for item in order.items.all %}
                     <tr>
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.created_at }}</td>
-                        <td >{{ order.first_name }} {{ order.last_name }}</td>
-                        <td>UGX {{ order.total_price|intcomma }}</td>
-                        <td>{{ order.phone }}</td>
-                        <td>{{ order.email }}</td>
-                        <td>{{ order.address }}</td>
-                        <td>{{  order.city }}</td>
-                        <td>{{ order.country }}</td>
-                        <td>
-                          
-                                <a  href="{% url 'order_detail' order.id %}" class="view-items-btn delete-btn">View Items</a>
-                           
-                            
-                        </td> 
+                        <td><img src="{{ item.product.image.url }}" alt="" class="product-image"></td>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>UGX {{ item.price|intcomma }}.</td>
+                        
                     </tr>
                     {% endfor %}
-         
+                </tbody>
             </table>
-  
       
         </div>
     </div>

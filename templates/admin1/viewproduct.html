@@ -40,6 +40,18 @@
         border-radius: 4px;
         cursor: pointer;
     }
+    .edit-btn{
+        background-color: #0dd1df;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 4px;
+        cursor: pointer;
+
+    }
     .messages {
         margin-bottom: 20px;
     }
@@ -88,6 +100,7 @@
                         <td>Brand</td>
                         <td>Category</td>
                         <td>Status</td>
+                        <td>Edit</td>
                         <td>Delete</td> <!-- Add a column for delete button -->
                     </tr>
                 </thead>
@@ -102,6 +115,9 @@
                         <td>{{ product.brand }}</td>
                         <td>{{ product.category }}</td>
                         <td><span class="status delivered">In stock</span></td>
+                        <td>
+                            <a href="{% url 'edit_product' product.id %}" class="edit-btn">Edit</a>
+                        </td>
                         <td>
                             <form method="post" action="{% url 'delete_product' %}">
                                 {% csrf_token %}

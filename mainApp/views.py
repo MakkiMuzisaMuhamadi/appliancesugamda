@@ -165,7 +165,6 @@ def place_order(request):
     for item in cart_items:
         item.total_price = item.product.price * item.quantity
     total_price = sum(item.total_price for item in cart_items)
-
     # Create the order
     order = Order.objects.create(
         first_name=request.POST.get('first_name'),
@@ -174,7 +173,8 @@ def place_order(request):
         phone=request.POST.get('phone'),
         address=request.POST.get('address'),
         city=request.POST.get('city'),
-        country=request.POST.get('country')
+        country=request.POST.get('country'),
+        total_price=total_price
     )
     order.save() 
     for cart_item in cart_items:
@@ -182,6 +182,8 @@ def place_order(request):
             order=order,
             product=cart_item.product,
             quantity=cart_item.quantity,
+            image=cart_item.product.image,
+            price=cart_item.product.price
         )
 
     cart_items.delete()
@@ -331,16 +333,19 @@ def delete_order(request):
         order.delete()
     messages.success(request, 'Order Deleted Successfully')
     return redirect('order_list')
-def get_items(request, order_id):
-    # Retrieve items for the given order ID
-    items = OrderItem.objects.filter(order_id=order_id)
 
-    # Prepare data to be sent as JSON
-    items_data = []
-    for item in items:
-        items_data.append({
-            'product_name': item.product.name,
-            'quantity': item.quantity
-        })
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    return render(request, 'admin1/orderDetails.html', {'order': order})
 
-    return JsonResponse(items_data, safe=False)
+
+def edit_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)  # Include request.FILES
+        if form.is_valid():
+            form.save()
+            return redirect('productList')
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'admin1/edit_product.html', {'form': form})
