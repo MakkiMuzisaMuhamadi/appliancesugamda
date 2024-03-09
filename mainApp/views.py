@@ -11,7 +11,7 @@ from django.contrib.sessions.backends.db import SessionStore
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login
-
+from django.contrib.auth import logout
 
 def login(request):
     error_message = None
@@ -22,14 +22,16 @@ def login(request):
         if user is not None:
             if user.is_staff:
                 auth_login(request, user)
-                return redirect('/admin1/')
+                return redirect('admin-applianceuganda')
             else:
                 return redirect('index')
         else:
             error_message = 'Invalid username or password'
     return render(request, 'login.html', {'error_message': error_message})
 
-
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 def index(request):
     slide = Slides.objects.all()
@@ -214,6 +216,7 @@ def category_products(request, category_id):
 
 
 # admin side views
+@login_required
 def admin1(request):
     products2 = Product.objects.all()
     categories = Category.objects.all()
@@ -226,7 +229,7 @@ def admin1(request):
         'brands': brands,
          }   
     return render (request, 'admin1/index.html', context)
-
+@login_required
 def create_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
@@ -238,10 +241,12 @@ def create_product(request):
     else:
         form = ProductForm()
     return render(request, 'admin1/products.html', {'form': form})
+@login_required
 def get_brands(request):
     category_id = request.GET.get('category_id')
     brands = Brand.objects.filter(category_id=category_id).values('id', 'name')
     return JsonResponse(list(brands), safe=False)
+@login_required
 def productList(request):
     products = Product.objects.all()
     
@@ -249,18 +254,21 @@ def productList(request):
         'products': products,
          }   
     return render (request, 'admin1/viewproduct.html', context)
+@login_required
 def categoryList(request):
     categories = Category.objects.all()
     context = {
         'categories': categories,
          }   
     return render (request, 'admin1/categoryList.html', context)
+@login_required
 def brandList(request):
     brands = Brand.objects.all()
     context = {
         'brands': brands,
          }   
     return render (request, 'admin1/brandList.html', context)
+@login_required
 def delete_product(request):
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
@@ -268,6 +276,7 @@ def delete_product(request):
         product.delete()
     messages.success(request, 'Product Deleted Successfully')
     return redirect('productList')
+@login_required
 def delete_category(request):
     if request.method == 'POST':
         category_id = request.POST.get('category_id')
@@ -275,6 +284,7 @@ def delete_category(request):
         category.delete()
     messages.success(request, 'Category Deleted Successfully')
     return redirect('categoryList')
+@login_required
 def delete_brand(request):
     if request.method == 'POST':
         brand_id = request.POST.get('brand_id')
@@ -282,6 +292,7 @@ def delete_brand(request):
         brand.delete()
     messages.success(request, 'Brand Deleted Successfully')
     return redirect('brandList')
+@login_required
 def add_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST, request.FILES)
@@ -291,6 +302,7 @@ def add_category(request):
     else:
         form = CategoryForm()
     return render(request, 'admin1/add_category.html', {'form': form})
+@login_required
 def add_brand(request):
     if request.method == 'POST':
         form = BrandForm(request.POST)
@@ -300,6 +312,7 @@ def add_brand(request):
     else:
         form = BrandForm()
     return render(request, 'admin1/add_brand.html', {'form': form})
+@login_required
 def order_list(request):
     # Get orders ordered by creation date in descending order
     orders = Order.objects.order_by('-created_at')
